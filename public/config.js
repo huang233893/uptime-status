@@ -1,12 +1,12 @@
 window.Config = {
 
   // 显示标题
-  SiteName: '极客青年云探针',
+  SiteName: '酥米的网页检测小站',
 
   // UptimeRobot Api Keys
   // 支持 Monitor-Specific 和 Read-Only
   ApiKeys: [
-    'ur894242-90d1eb90acc82624bcaed27a',
+    'ur3131603-4cee34ff0f5df874b0f6d246',
   ],
 
   // 日志天数
@@ -19,15 +19,15 @@ window.Config = {
   Navi: [
     {
       text: '主页',
-      url: 'https://up.java666.cn'
+      url: 'https://up.sumi233.top'
     },
     {
-      text: 'GitHub',
-      url: 'https://github.com/geekyouth/uptime-status'
+      text: '酥米的GitHub',
+      url: 'https://github.com/huang233893'
     },
     {
-      text: '导航',
-      url: 'https://home.java666.cn'
+      text: '博客',
+      url: 'https://www.sumi233.top'
     },
   ],
 };
