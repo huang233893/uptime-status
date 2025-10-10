@@ -2,10 +2,9 @@ import { useMemo } from 'react';
 import Link from './link';
 import Header from './header';
 import UptimeRobot from './uptimerobot';
-import Package from '../../package.json';
 
 function App() {
-
+  // 处理API密钥，确保格式为数组
   const apikeys = useMemo(() => {
     const { ApiKeys } = window.Config;
     if (Array.isArray(ApiKeys)) return ApiKeys;
@@ -15,17 +14,16 @@ function App() {
 
   return (
     <>
+      {/* 头部导航 */}
       <Header />
+      
+      {/* 主内容容器 */}
       <div className='container'>
         <div id='uptime'>
           {apikeys.map((key) => (
             <UptimeRobot key={key} apikey={key} />
           ))}
-        </div>
-        <div id='footer'>
-          <p>基于 <Link to='https://uptimerobot.com/' text='UptimeRobot' /> 接口制作，检测频率 5 分钟</p>
-          <p>&copy; 2020~2025 <Link to='https://up.sumi233.top' text='https://up.sumi233.top' />, Version {Package.version}</p>
-        </div>
+        </div>  
       </div>
     </>
   );
