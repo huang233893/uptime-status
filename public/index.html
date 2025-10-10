@@ -7,28 +7,61 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-    <title>Uptime Status</title>
+    <title>酥米的网页检测小站</title>
     <script src="./config.js"></script>
     <script
       src="https://app.rybbit.io/api/script.js"
       data-site-id="801"
       defer
     ></script>
-    <!-- 引入 SCSS 编译后的 CSS 文件 -->
   </head>
   <body>
-    <!-- 所有内容（包括页脚）由 JS 动态渲染到 #app 中 -->
+    <!-- 主内容容器 -->
     <div id="app"></div>
+
+    <!-- 底部统计区（直接嵌入 HTML，确保唯一） -->
+    <footer id="footer">
+      <div class="footer-content">
+        <div class="api-info">
+          基于 UptimeRobot 接口制作，检测频率 5 分钟 © 2020-2025 
+          <a href="https://up.sumi233.top">https://up.sumi233.top</a> Version 2.0.0
+        </div>
+        <div class="stats">
+          <div class="stat-item">
+            本文总阅读量 
+            <span id="busuanzi_page_pv" style="color: #50ebc4; font-size: 14px; font-weight: bold;"></span> 次
+          </div>
+          <div class="stat-item">
+            本文总访客量 
+            <span id="busuanzi_page_uv" style="color: #03ec16; font-size: 14px; font-weight: bold;"></span> 人
+          </div>
+          <div class="stat-item">
+            本站总访问量 
+            <span id="busuanzi_site_pv" style="color: #9775f5; font-size: 14px; font-weight: bold;"></span> 次
+          </div>
+          <div class="stat-item">
+            本站总访客数 
+            <span id="busuanzi_site_uv" style="color: #e95faf; font-size: 14px; font-weight: bold;"></span> 人
+          </div>
+        </div>
+        <div class="copyright">
+          本站所有数据仅供参考 | <a href="/about">关于本站</a>
+        </div>
+      </div>
+    </footer>
 
     <!-- 不蒜子访问量统计脚本 -->
     <script defer src="https://busuanzi.9420.ltd/js"></script>
 
-    <!-- 解决页面刷新闪烁的 JS -->
+    <!-- 解决页面刷新闪烁的 JS：确保加载完成后再显示页面 -->
     <script>
-      window.addEventListener('load', () => {
+      // 页面完全加载后（包括图片、样式等）显示内容
+      window.addEventListener('load', function() {
         document.documentElement.classList.add('loaded');
       });
-      document.addEventListener('DOMContentLoaded', () => {
+
+      // DOM 结构就绪时，延迟 100ms 显示（避免白屏过久）
+      document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
           document.documentElement.classList.add('loaded');
         }, 100);
