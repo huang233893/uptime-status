@@ -2,7 +2,7 @@
 
 基于 UptimeRobot API 的在线状态面板，由 geekyouth 大佬的原项目修改而来
 
-原项目地址：[点我跳转]("点我跳转" https://github.com/geekyouth/uptime-status)
+原项目地址：https://github.com/geekyouth/uptime-status
 
 <img width="1152" alt="image" src="https://raw.githubusercontent.com/huang233893/uptime-status/refs/heads/master/image/2.JPG">
 
