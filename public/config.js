@@ -22,8 +22,8 @@ window.Config = {
       url: 'https://up.sumi233.top'
     },
     {
-      text: '酥米的GitHub',
-      url: 'https://github.com/huang233893'
+      text: 'GitHub',
+      url: 'https://github.com/huang233893/uptime-status'
     },
     {
       text: '博客',
