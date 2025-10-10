@@ -60,10 +60,17 @@ function UptimeRobot({ apikey }) {
   ));
 
   else return (
-    <div className='site'>
-      <div className='loading' />
-    </div>
-  );
-}
-
+  <div className='site' style={{ textAlign: 'center', padding: '40px 0' }}>
+    <div style={{
+      width: '40px',
+      height: '40px',
+      margin: '0 auto',
+      border: '3px solid #f3f3f3',
+      borderTop: `3px solid ${window.Config.PrimaryColor || '#3B82F6'}`,
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }}></div>
+    <p style={{ marginTop: '15px', color: '#6B7280' }}>正在获取状态数据...</p>
+  </div>
+);
 export default UptimeRobot;
