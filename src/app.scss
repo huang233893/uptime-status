@@ -1,17 +1,17 @@
-// 基础变量 - 更细腻的色彩体系
-$primary: #4F86F7; // 主色调（柔和蓝）
-$primary-light: #EBF2FF; // 主色浅背景
-$success: #36D399; // 成功色（健康绿）
-$danger: #F87272; // 危险色（警示红）
-$neutral: #94A3B8; // 中性色（灰色）
+// 基础变量 - 橙色主题
+$primary: #FF7A00; // 主色调（活力橙）
+$primary-light: #FFF1E0; // 主色浅背景
+$success: #36D399; // 成功色
+$danger: #F87272; // 危险色
+$neutral: #94A3B8; // 中性色
 $neutral-light: #F1F5F9; // 浅灰背景
 $dark: #1E293B; // 深色文本
 $card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 $card-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
-$radius: 12px; // 统一圆角
-$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // 平滑过渡
+$radius: 12px;
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-// 全局样式重置与基础设置
+// 全局样式
 * {
   margin: 0;
   padding: 0;
@@ -23,7 +23,7 @@ body {
   font-size: 14px;
   line-height: 1.6;
   color: $dark;
-  background-color: #F8FAFC; // 页面背景色（极浅灰）
+  background-color: #F8FAFC;
   padding-bottom: 40px;
 }
 
@@ -35,38 +35,78 @@ body {
   padding: 0 20px;
 }
 
-// 头部样式
+// 头部与导航栏美化
 #header {
   background-color: $dark;
-  padding: 30px 0; // 减少底部 padding，更紧凑
+  padding: 22px 0;
   color: white;
-  
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // 顶部阴影增强
+
   .container {
     display: flex;
     justify-content: space-between;
-    align-items: center; // 垂直居中更协调
+    align-items: center;
   }
-  
+
   .logo {
     font-size: 22px;
     font-weight: 600;
     color: $primary;
     letter-spacing: 0.5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    // 可添加小图标增强识别度
+    &::before {
+      content: "🔍";
+      font-size: 18px;
+    }
   }
-  
+
+  // 导航栏核心美化
   .navi {
     display: flex;
-    gap: 24px; // 导航间距更均匀
-    
+    gap: 28px; // 加宽间距
+    align-items: center;
+
     a {
       color: #CBD5E1;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 500;
+      position: relative;
+      padding: 8px 0;
       transition: $transition;
-      
+
+      // 底部下划线动画效果
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $primary;
+        transition: $transition;
+      }
+
       &:hover {
         color: $primary;
-        transform: translateY(-1px);
+
+        &::after {
+          width: 100%; // 悬停时下划线展开
+        }
+      }
+
+      // 活跃状态样式
+      &.active {
+        color: $primary;
+
+        &::after {
+          width: 100%;
+        }
       }
     }
   }
@@ -77,34 +117,31 @@ body {
   background-color: white;
   border-radius: $radius;
   box-shadow: $card-shadow;
-  margin-top: -20px; // 轻微覆盖头部，增强层次感
+  margin-top: -20px;
   overflow: hidden;
   transition: $transition;
-  
-  // 每个站点卡片
+
   .site {
     padding: 24px 30px;
-    border-bottom: 1px solid #EEF2F7; // 更浅的分隔线
+    border-bottom: 1px solid #EEF2F7;
     transition: $transition;
-    
-    // 最后一个卡片移除底边框
+    position: relative;
+
     &:last-child {
       border-bottom: none;
     }
-    
-    // 悬停效果增强
+
     &:hover {
       transform: translateY(-2px);
       box-shadow: $card-shadow-hover;
       background-color: rgba(255, 255, 255, 0.8);
     }
-    
-    // 站点信息头部
+
     .meta {
       display: flex;
       align-items: center;
-      margin-bottom: 18px; // 与时间线拉开距离
-      
+      margin-bottom: 18px;
+
       .name {
         font-size: 17px;
         font-weight: 600;
@@ -112,22 +149,20 @@ body {
         display: flex;
         align-items: center;
         gap: 8px;
-        
-        // 链接图标美化
+
         + .link {
           width: 16px;
           height: 16px;
           opacity: 0.6;
           transition: $transition;
-          
+
           &:hover {
             opacity: 1;
             transform: scale(1.1);
           }
         }
       }
-      
-      // 状态标签优化
+
       .status {
         padding: 4px 12px;
         border-radius: 16px;
@@ -137,78 +172,76 @@ body {
         align-items: center;
         gap: 6px;
         margin-left: auto;
-        
-        // 状态图标
+
         &::before {
           content: '';
           width: 8px;
           height: 8px;
           border-radius: 50%;
         }
-        
+
         &.ok {
           color: $success;
           background-color: rgba(54, 211, 153, 0.1);
-          
+
           &::before {
             background-color: $success;
           }
         }
-        
+
         &.fail {
           color: $danger;
           background-color: rgba(248, 114, 114, 0.1);
-          
+
           &::before {
             background-color: $danger;
           }
         }
-        
+
         &.unknow {
           color: $neutral;
           background-color: rgba(148, 163, 184, 0.1);
-          
+
           &::before {
             background-color: $neutral;
           }
         }
       }
     }
-    
-    // 时间线美化
+
+    // 时间线样式
     .timeline {
       display: flex;
-      gap: 2px; // 节点间距
-      height: 10px; // 更细的时间线
+      gap: 2px;
+      height: 10px;
       margin-bottom: 16px;
       overflow: hidden;
-      
+
       i {
         flex: 1;
-        min-width: 8px; // 最小宽度保证显示
-        border-radius: 2px; // 更扁的圆角
+        min-width: 8px;
+        border-radius: 2px;
         transition: $transition;
-        
+
         &.ok {
-          background-color: $primary;
+          background-color: $primary; // 时间线使用橙色
         }
-        
+
         &.down {
           background-color: $danger;
         }
-        
+
         &.none {
           background-color: #E2E8F0;
         }
-        
-        // 时间线节点悬停效果
+
         &:hover {
           transform: scaleY(1.5);
           z-index: 1;
         }
       }
     }
-    
+
     // 统计信息区
     .summary {
       display: flex;
@@ -216,31 +249,34 @@ body {
       font-size: 12px;
       color: $neutral;
       padding-top: 8px;
-      border-top: 1px dashed #EEF2F7; // 虚线分隔，更精致
-      
+      border-top: 1px dashed #EEF2F7;
+
       span {
         &:nth-child(2) {
-          color: #64748B; // 主统计信息稍深
+          color: #64748B;
           font-weight: 500;
         }
       }
     }
-    
-    // 加载动画优化
+
+    // 加载动画
     .loading {
       width: 40px;
       height: 40px;
       margin: 20px auto;
       border: 3px solid $neutral-light;
-      border-top-color: $primary;
+      border-top-color: $primary; // 加载动画使用橙色
       border-radius: 50%;
       animation: spin 1.2s linear infinite;
     }
   }
 }
 
-// 提示框样式优化
+// 修复tooltip重叠问题
 .tooltip {
+  display: none !important;
+  position: absolute !important;
+  z-index: 100 !important;
   background-color: $dark !important;
   color: white !important;
   border-radius: 6px !important;
@@ -248,6 +284,11 @@ body {
   font-size: 12px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
   border: none !important;
+  white-space: nowrap !important;
+}
+
+[data-tip]:hover + .tooltip {
+  display: block !important;
 }
 
 // 页脚样式
@@ -257,15 +298,15 @@ body {
   text-align: center;
   font-size: 12px;
   color: $neutral;
-  
+
   a {
-    color: $primary;
+    color: $primary; // 页脚链接使用橙色
     text-decoration: none;
     font-weight: 500;
     transition: $transition;
-    
+
     &:hover {
-      color: #3B73E0;
+      color: #E06A00; // 深色橙色 hover效果
       text-decoration: underline;
     }
   }
@@ -274,38 +315,40 @@ body {
 // 响应式优化
 @media (max-width: 768px) {
   #header {
-    padding: 20px 0;
-    
+    padding: 18px 0;
+
     .container {
       flex-direction: column;
       gap: 15px;
     }
-    
-    .logo {
-      font-size: 20px;
+
+    .navi {
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
   }
-  
+
   #uptime {
     margin: 0 10px;
     margin-top: -15px;
-    
+
     .site {
       padding: 18px 15px;
-      
+
       .meta {
-        flex-wrap: wrap; // 小屏幕允许换行
+        flex-wrap: wrap;
         gap: 8px 12px;
-        
+
         .status {
           margin-left: 0;
           margin-top: 8px;
-          order: 3; // 状态标签移到下方
+          order: 3;
           width: 100%;
           justify-content: center;
         }
       }
-      
+
       .summary {
         flex-direction: column;
         gap: 6px;
@@ -313,13 +356,13 @@ body {
       }
     }
   }
-  
+
   .timeline {
     padding-bottom: 10px;
   }
 }
 
-// 加载动画
+// 动画定义
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
