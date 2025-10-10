@@ -5,7 +5,6 @@ import { formatDuration, formatNumber } from '../common/helper';
 import Link from './link';
 
 function UptimeRobot({ apikey }) {
-
   const status = {
     ok: '正常',
     down: '无法访问',
@@ -13,7 +12,6 @@ function UptimeRobot({ apikey }) {
   };
 
   const { CountDays, ShowLink } = window.Config;
-
   const [monitors, setMonitors] = useState();
 
   useEffect(() => {
@@ -59,18 +57,22 @@ function UptimeRobot({ apikey }) {
     </div>
   ));
 
+  // 修正加载动画的样式写法，避免语法错误
   else return (
-  <div className='site' style={{ textAlign: 'center', padding: '40px 0' }}>
-    <div style={{
-      width: '40px',
-      height: '40px',
-      margin: '0 auto',
-      border: '3px solid #f3f3f3',
-      borderTop: `3px solid ${window.Config.PrimaryColor || '#3B82F6'}`,
-      borderRadius: '50%',
-      animation: 'spin 1s linear infinite'
-    }}></div>
-    <p style={{ marginTop: '15px', color: '#6B7280' }}>正在获取状态数据...</p>
-  </div>
-);
+    <div className='site' style={{ textAlign: 'center', padding: '40px 0' }}>
+      <div style={{
+        width: '40px',
+        height: '40px',
+        margin: '0 auto',
+        border: '3px solid #f3f3f3',
+        borderTop: `3px solid ${window.Config.PrimaryColor || '#3B82F6'}`,
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite'
+      }}></div>
+      <p style={{ marginTop: '15px', color: '#6B7280' }}>正在获取状态数据...</p>
+    </div>
+  );
+}
+
+// 确保导出语句在文件最底部
 export default UptimeRobot;
