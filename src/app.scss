@@ -6,12 +6,13 @@ $danger: #F87272;
 $neutral: #94A3B8;
 $neutral-light: #F1F5F9;
 $dark: #1E293B;
+$dark-light: #2D3748; // 导航栏渐变浅色
 $card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 $card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
 $radius: 12px;
 $transition: all 0.3s ease;
 
-// 全局样式
+// 全局样式重置
 * {
   margin: 0;
   padding: 0;
@@ -23,8 +24,14 @@ body {
   font-size: 14px;
   line-height: 1.6;
   color: $dark;
-  background-color: #F5F7FA;
-  padding: 20px 0 60px;
+  // 美化背景：柔和浅灰+轻微纹理
+  background-color: #F0F2F5;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px);
+  background-size: 20px 20px;
+  padding: 0;
+  margin: 0;
 }
 
 // 容器样式
@@ -35,17 +42,20 @@ body {
   padding: 0 20px;
 }
 
-// 头部导航
+// 头部导航（修复错位+美化背景）
 #header {
-  background-color: $dark;
-  padding: 22px 0;
-  margin-bottom: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  // 导航栏背景：深色渐变增强质感
+  background: linear-gradient(135deg, $dark 0%, $dark-light 100%);
+  padding: 18px 0;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 100;
 
   .container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; // 垂直居中修复错位
+    flex-wrap: nowrap; // 禁止换行避免错位
   }
 
   .logo {
@@ -56,6 +66,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    white-space: nowrap; // 防止logo换行
 
     &::before {
       content: "🔍";
@@ -65,7 +76,10 @@ body {
 
   .navi {
     display: flex;
-    gap: 28px;
+    gap: 24px; // 调整间距避免拥挤
+    align-items: center;
+    margin: 0;
+    padding: 0;
 
     a {
       color: #CBD5E1;
@@ -73,7 +87,8 @@ body {
       font-size: 15px;
       font-weight: 500;
       position: relative;
-      padding: 8px 0;
+      padding: 6px 0;
+      white-space: nowrap; // 防止导航项换行
 
       &::after {
         content: '';
@@ -103,14 +118,15 @@ body {
   }
 }
 
-// 网格布局容器
+// 主内容区网格布局
 #uptime {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
+  padding: 30px 0; // 上下留白
 }
 
-// 卡片样式（恢复核心功能）
+// 卡片样式（修复核心功能）
 .site {
   background-color: white;
   border-radius: $radius;
@@ -119,9 +135,9 @@ body {
   transition: $transition;
   padding: 0;
   border: none;
-  position: relative; // 为链接覆盖做准备
-  
-  // 点击区域覆盖整个卡片
+  position: relative;
+
+  // 卡片点击区域（覆盖整个卡片）
   .link {
     position: absolute;
     top: 0;
@@ -130,33 +146,33 @@ body {
     bottom: 0;
     z-index: 10;
     cursor: pointer;
-    text-indent: -9999px; // 隐藏原文本
+    text-indent: -9999px;
   }
-  
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: $card-shadow-hover;
   }
-  
-  // 卡片内容区
+
+  // 卡片内容区域
   .meta, .timeline, .summary {
     padding: 18px 20px;
-    position: relative; // 确保内容在链接上方可见
+    position: relative;
     z-index: 20;
   }
-  
-  // 标题区域
+
+  // 标题与状态区
   .meta {
     margin: 0;
     display: block;
     border-bottom: 1px solid #f0f0f0;
-    
+
     .name {
       font-size: 18px;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       color: $dark;
       display: block;
-      
+
       &::after {
         content: '';
         display: block;
@@ -166,67 +182,78 @@ body {
         margin-top: 8px;
       }
     }
-    
-    // 状态标签
+
+    // 状态标签（修复失败状态圆点）
     .status {
-      margin: 12px 0 0;
-      padding: 3px 10px;
-      font-size: 12px;
+      margin: 0;
+      padding: 4px 12px;
+      font-size: 13px;
+      font-weight: 500;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      
+      border-radius: 16px;
+
+      // 状态圆点（确保所有状态都显示）
       &::before {
         content: '';
         width: 8px;
         height: 8px;
         border-radius: 50%;
+        flex-shrink: 0; // 防止圆点被压缩
       }
-      
+
       &.ok {
         color: $success;
         background-color: rgba(54, 211, 153, 0.1);
         &::before { background-color: $success; }
       }
-      
+
       &.fail {
         color: $danger;
         background-color: rgba(248, 114, 114, 0.1);
-        &::before { background-color: $danger; }
+        &::before { background-color: $danger; } // 修复失败状态圆点
+      }
+
+      &.unknow {
+        color: $neutral;
+        background-color: rgba(148, 163, 184, 0.1);
+        &::before { background-color: $neutral; }
       }
     }
   }
-  
-  // 恢复网络检测条形图（时间线）
+
+  // 网络时间条形图（修复显示问题）
   .timeline {
     height: auto;
     background: none;
     margin: 0;
-    display: flex; // 恢复flex布局
-    gap: 2px;
-    height: 8px;
-    padding: 12px 20px;
+    display: flex; // 强制flex布局
+    gap: 1px; // 缩小间距显示更多节点
+    height: 8px; // 合适的高度
+    padding: 15px 20px;
     border-bottom: 1px dashed #f0f0f0;
-    
+    overflow: hidden;
+
     i {
-      display: block; // 恢复显示所有时间点
+      display: block !important; // 强制显示所有时间点
       flex: 1;
-      min-width: 4px;
-      border-radius: 2px;
+      min-width: 3px; // 确保小屏幕也能显示
+      border-radius: 1px;
       transition: $transition;
-      
+
       &.ok { background-color: $primary; }
       &.down { background-color: $danger; }
       &.none { background-color: #E2E8F0; }
-      
+
       &:hover {
-        transform: scaleY(1.8);
+        transform: scaleY(2);
         z-index: 30;
       }
     }
   }
-  
-  // 统计信息区
+
+  // 底部时间信息
   .summary {
     display: flex;
     justify-content: space-between;
@@ -234,26 +261,32 @@ body {
     color: $neutral;
     padding-top: 15px;
     border-top: none;
-    
+
     span {
       &:first-child {
         color: $primary;
         font-weight: 500;
       }
-      
+
       &:nth-child(2) {
         display: none;
       }
     }
   }
-  
-  // 加载状态
+
+  // 加载动画
   .loading {
+    width: 40px;
+    height: 40px;
     margin: 40px auto;
+    border: 3px solid $neutral-light;
+    border-top-color: $primary;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
   }
 }
 
-// 提示框样式（时间线悬停提示）
+// 时间线提示框
 .tooltip {
   display: none !important;
   position: absolute !important;
@@ -274,17 +307,18 @@ body {
 
 // 页脚样式
 #footer {
-  margin-top: 60px;
+  margin-top: 20px;
   padding: 20px 0;
   text-align: center;
   font-size: 12px;
   color: $neutral;
+  border-top: 1px solid #E2E8F0;
 
   a {
     color: $primary;
     text-decoration: none;
     font-weight: 500;
-    
+
     &:hover {
       color: #E06A00;
       text-decoration: underline;
@@ -292,29 +326,36 @@ body {
   }
 }
 
-// 响应式调整
-@media (max-width: 1024px) {
-  #uptime {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
-}
-
+// 响应式修复（防止导航栏错位）
 @media (max-width: 768px) {
-  #uptime {
-    grid-template-columns: 1fr;
+  #header {
+    padding: 15px 0;
   }
-  
+
   #header .container {
     flex-direction: column;
-    gap: 15px;
+    gap: 12px; // 缩小间距避免占太多空间
+    align-items: center;
   }
-  
+
   #header .navi {
+    gap: 16px; // 小屏幕缩小导航间距
+    justify-content: center;
+    width: 100%;
+  }
+
+  #uptime {
+    grid-template-columns: 1fr;
     gap: 18px;
+    padding: 20px 0;
+  }
+
+  .site .timeline {
+    padding: 12px 15px;
   }
 }
 
-// 动画
+// 动画定义
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
