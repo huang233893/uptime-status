@@ -12,6 +12,11 @@
 ## 页尾截图
 ![](https://raw.githubusercontent.com/huang233893/uptime-status/refs/heads/master/image/3.JPG)
 
+## 未来更新目标
+- 添加网页动画
+- 优化时间线显示
+- 导航栏重制
+
 # 优势
 - 更好的界面和动画
 - 适应式布局
@@ -32,4 +37,7 @@
    - `CountDays`: 要显示的日志天数，建议 60 或 90，显示效果比较好
    - `ShowLink`: 是否显示站点链接
    - `Navi`: 导航栏的菜单列表
+- 修改 'Index.html' 文件
+   - 页脚信息
+   - 页脚网站
 - 傻瓜式部署到 vercel 或者 netlify
