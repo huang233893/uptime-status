@@ -1,26 +1,34 @@
-// 基础变量定义
+// 基础变量（增强质感）
 $primary: #FF7A00;
-$primary-light: #FFF1E0;
+$primary-dark: #E06A00;
 $success: #36D399;
 $danger: #F87272;
 $neutral: #94A3B8;
 $dark: #1A202C;
+$dark-light: #2D3748;
 $card-bg: #FFFFFF;
 $border-light: #EEF2F7;
+$nav-gradient: linear-gradient(135deg, $dark 0%, $dark-light 100%);
 $card-shadow: 0 4px 12px rgba(0,0,0,0.08);
 $card-shadow-hover: 0 8px 20px rgba(0,0,0,0.12);
 $radius: 10px;
-$transition: all 0.3s ease;
+$transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // 更自然的过渡曲线
 
-// 全局样式重置
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+// 全局样式（解决加载闪烁）
+html {
+  visibility: hidden; // 初始隐藏所有内容
+  opacity: 0;
+  transition: visibility 0s 0.3s, opacity 0.3s ease; // 延迟显示
+}
+
+html.loaded {
+  visibility: visible; // 加载完成后显示
+  opacity: 1;
+  transition-delay: 0s; // 移除延迟
 }
 
 body {
-  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
   font-size: 14px;
   line-height: 1.6;
   color: $dark;
@@ -42,11 +50,13 @@ body {
   padding: 0 20px;
 }
 
-// 导航栏样式
+// 导航栏（增强质感）
 #header {
-  background-color: $dark;
+  background: $nav-gradient;
   padding: 18px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 
+    0 2px 10px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.05); // 内发光增强质感
   position: relative;
   z-index: 100;
 
@@ -59,34 +69,40 @@ body {
 
   .logo {
     color: $primary;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2); // 文字阴影增强质感
+    letter-spacing: 0.3px; // 字间距优化
 
     &::before {
       content: "🔍";
-      font-size: 18px;
+      font-size: 20px;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2)); // 图标阴影
     }
   }
 
   .navi {
     display: flex;
-    gap: 24px;
+    gap: 28px;
     align-items: center;
     margin: 0;
     padding: 0;
 
     a {
-      color: #CBD5E1;
+      color: #E2E8F0;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 500; // 半粗体增强质感
       position: relative;
-      padding: 5px 0;
+      padding: 6px 0;
       transition: $transition;
+      letter-spacing: 0.2px; // 字间距优化
+      text-shadow: 0 1px 1px rgba(0,0,0,0.1); // 轻微文字阴影
 
       &::after {
         content: '';
@@ -97,6 +113,7 @@ body {
         height: 2px;
         background-color: $primary;
         transition: $transition;
+        border-radius: 1px; // 下划线圆角
       }
 
       &:hover {
@@ -134,7 +151,6 @@ body {
   transition: $transition;
   overflow: hidden;
 
-  // 卡片点击区域（覆盖整个卡片）
   .link {
     position: absolute;
     top: 0;
@@ -147,13 +163,11 @@ body {
     cursor: pointer;
   }
 
-  // 卡片悬停效果
   &:hover {
     transform: translateY(-3px);
     box-shadow: $card-shadow-hover;
   }
 
-  // 标题与状态区
   .meta {
     margin-bottom: 15px;
     position: relative;
@@ -171,7 +185,6 @@ body {
       z-index: 2;
     }
 
-    // 状态标签（核心修复：所有状态显示圆点）
     .status {
       display: inline-flex !important;
       align-items: center;
@@ -182,7 +195,6 @@ body {
       font-weight: 500;
       position: relative;
 
-      // 强制显示状态圆点
       &::before {
         content: '' !important;
         width: 8px !important;
@@ -192,7 +204,6 @@ body {
         display: block !important;
       }
 
-      // 正常状态（绿色圆点）
       &:contains("正常")::before,
       &.ok::before {
         background-color: $success !important;
@@ -200,7 +211,6 @@ body {
         background: rgba(54,211,153,0.1);
       }
 
-      // 无法访问状态（红色圆点）
       &:contains("无法访问")::before,
       &.fail::before,
       &.down::before {
@@ -211,7 +221,6 @@ body {
     }
   }
 
-  // 时间条形图
   .timeline {
     display: flex;
     gap: 1px;
@@ -233,7 +242,6 @@ body {
       &.down { background: $danger; }
       &.none { background: #D1D5DB; }
 
-      // 节点悬停动画
       &:hover {
         transform: scaleY(1.8);
         z-index: 3;
@@ -241,7 +249,6 @@ body {
     }
   }
 
-  // 统计信息区
   .summary {
     display: flex;
     justify-content: space-between;
@@ -260,7 +267,6 @@ body {
     }
   }
 
-  // 加载动画
   .loading {
     width: 36px;
     height: 36px;
@@ -272,7 +278,7 @@ body {
   }
 }
 
-// 时间线提示框
+// 提示框
 .tooltip {
   display: none;
   position: absolute;
@@ -293,37 +299,86 @@ body {
   display: block;
 }
 
-// 页脚样式
+// 底部统计信息（美化）
 #footer {
-  text-align: center;
-  padding: 20px 0;
-  font-size: 12px;
-  color: $neutral;
   margin-top: 40px;
+  padding: 25px 0;
   border-top: 1px solid $border-light;
+  background-color: rgba(255,255,255,0.5); // 半透明白色背景
+  border-radius: 8px 8px 0 0; // 顶部圆角
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.03); // 顶部阴影
 
-  a {
-    color: $primary;
-    text-decoration: none;
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-    &:hover {
-      color: #E06A00;
-      text-decoration: underline;
+  .api-info {
+    text-align: center;
+    font-size: 12px;
+    color: $neutral;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed $border-light; // 分隔线
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px 30px; // 行列间距
+    font-size: 13px;
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: $dark;
+
+      &::before {
+        content: "📊"; // 数据图标
+        font-size: 14px;
+      }
+
+      .number {
+        color: $primary;
+        font-weight: 600;
+        margin-left: 3px;
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 12px;
+    color: $neutral;
+
+    a {
+      color: $primary;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        color: $primary-dark;
+        text-decoration: underline;
+      }
     }
   }
 }
 
-// 动画关键帧
+// 动画
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-// 响应式调整
+// 响应式适配（手机排版）
 @media (max-width: 768px) {
-  #uptime {
-    grid-template-columns: 1fr;
-    gap: 15px;
+  // 导航栏手机适配
+  #header {
+    padding: 15px 0;
   }
 
   #header .container {
@@ -336,13 +391,39 @@ body {
     gap: 18px;
     justify-content: center;
     width: 100%;
+    flex-wrap: wrap; // 允许导航项换行
+  }
+
+  #header .navi a {
+    font-size: 14px;
+    padding: 4px 0;
+  }
+
+  // 主内容区手机适配
+  #uptime {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 20px 0;
   }
 
   .site {
     padding: 15px;
   }
 
-  .timeline {
-    margin: 12px 0;
+  // 底部统计手机适配
+  #footer {
+    padding: 20px 0;
+  }
+
+  .stats {
+    gap: 15px 20px;
+    justify-content: flex-start; // 左对齐更适合手机
+    padding: 0 10px;
+  }
+
+  .stat-item {
+    flex-basis: calc(50% - 20px); // 两列布局
   }
 }
+
+// 加载完成触发（需配合JS）
