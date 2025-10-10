@@ -24,24 +24,5 @@
       本站总访问量 <span id="busuanzi_site_pv" style="color: #9775f5; font-size: 14px; font-weight: bold;"></span> 次&nbsp;&nbsp;&nbsp;&nbsp;
       本站总访客数 <span id="busuanzi_site_uv" style="color: #e95faf; font-size: 14px; font-weight: bold;"></span> 人
     </div>
-      <script>
-    // 检查本地存储中的主题偏好或系统偏好
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark-mode');
-    } else {
-      document.documentElement.classList.remove('dark-mode');
-    }
-
-    // 添加切换按钮事件监听
-    document.querySelector('.theme-toggle').addEventListener('click', function() {
-      if (document.documentElement.classList.contains('dark-mode')) {
-        document.documentElement.classList.remove('dark-mode');
-        localStorage.theme = 'light';
-      } else {
-        document.documentElement.classList.add('dark-mode');
-        localStorage.theme = 'dark';
-      }
-    });
-    </script>
   </body>
 </html>
