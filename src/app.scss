@@ -1,18 +1,16 @@
-// 基础变量（橙色主题）
-$primary: #FF7A00;
-$primary-light: #FFF1E0;
-$success: #36D399;
-$danger: #F87272;
-$neutral: #94A3B8;
-$neutral-light: #F1F5F9;
-$dark: #1E293B;
-$dark-light: #2D3748; // 导航栏渐变浅色
-$card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-$card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
+// 基础变量（优化色彩质感）
+$primary: #FF7A00; // 主橙色保持
+$success: #36D399; // 正常绿色
+$danger: #F87272; // 故障红色
+$neutral: #94A3B8; // 中性灰
+$nav-bg: #16213E; // 导航栏主色（深靛蓝，有质感）
+$nav-gradient: #0F3460; // 导航栏渐变色
+$card-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+$card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.12);
 $radius: 12px;
 $transition: all 0.3s ease;
 
-// 全局样式重置
+// 全局样式
 * {
   margin: 0;
   padding: 0;
@@ -23,15 +21,13 @@ body {
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 14px;
   line-height: 1.6;
-  color: $dark;
-  // 美化背景：柔和浅灰+轻微纹理
-  background-color: #F0F2F5;
+  color: #333;
+  background-color: #F5F7FA;
   background-image: 
-    linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px);
-  background-size: 20px 20px;
-  padding: 0;
-  margin: 0;
+    linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px);
+  background-size: 30px 30px;
+  min-height: 100vh;
 }
 
 // 容器样式
@@ -42,31 +38,31 @@ body {
   padding: 0 20px;
 }
 
-// 头部导航（修复错位+美化背景）
+// 导航栏（质感升级+颜色优化）
 #header {
-  // 导航栏背景：深色渐变增强质感
-  background: linear-gradient(135deg, $dark 0%, $dark-light 100%);
+  background: linear-gradient(135deg, $nav-bg 0%, $nav-gradient 100%); // 深靛蓝渐变
   padding: 18px 0;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 15px rgba(0, 10, 30, 0.2); // 深邃阴影增强质感
   position: relative;
   z-index: 100;
 
   .container {
     display: flex;
     justify-content: space-between;
-    align-items: center; // 垂直居中修复错位
-    flex-wrap: nowrap; // 禁止换行避免错位
+    align-items: center;
+    flex-wrap: nowrap;
   }
 
   .logo {
     font-size: 22px;
     font-weight: 600;
-    color: $primary;
+    color: #FFD166; // 标题用暖金色，与深靛蓝对比协调
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 8px;
-    white-space: nowrap; // 防止logo换行
+    gap: 10px;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2); // 标题文字阴影
 
     &::before {
       content: "🔍";
@@ -76,19 +72,17 @@ body {
 
   .navi {
     display: flex;
-    gap: 24px; // 调整间距避免拥挤
+    gap: 26px;
     align-items: center;
-    margin: 0;
-    padding: 0;
 
     a {
-      color: #CBD5E1;
+      color: #E2E8F0; // 导航文字用浅灰，与深色背景协调
       text-decoration: none;
       font-size: 15px;
       font-weight: 500;
       position: relative;
       padding: 6px 0;
-      white-space: nowrap; // 防止导航项换行
+      transition: $transition;
 
       &::after {
         content: '';
@@ -97,19 +91,19 @@ body {
         left: 0;
         width: 0;
         height: 2px;
-        background-color: $primary;
+        background-color: #FFD166; // 导航下划线用金色
         transition: $transition;
       }
 
       &:hover {
-        color: $primary;
+        color: #FFD166;
         &::after {
           width: 100%;
         }
       }
 
       &.active {
-        color: $primary;
+        color: #FFD166;
         &::after {
           width: 100%;
         }
@@ -118,15 +112,15 @@ body {
   }
 }
 
-// 主内容区网格布局
+// 主内容区网格
 #uptime {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
-  padding: 30px 0; // 上下留白
+  padding: 30px 0;
 }
 
-// 卡片样式（修复核心功能）
+// 卡片样式（核心功能修复）
 .site {
   background-color: white;
   border-radius: $radius;
@@ -137,7 +131,7 @@ body {
   border: none;
   position: relative;
 
-  // 卡片点击区域（覆盖整个卡片）
+  // 卡片点击区域
   .link {
     position: absolute;
     top: 0;
@@ -154,23 +148,15 @@ body {
     box-shadow: $card-shadow-hover;
   }
 
-  // 卡片内容区域
-  .meta, .timeline, .summary {
-    padding: 18px 20px;
-    position: relative;
-    z-index: 20;
-  }
-
   // 标题与状态区
   .meta {
-    margin: 0;
-    display: block;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 20px 20px 15px;
+    border-bottom: 1px solid #F1F5F9;
 
     .name {
       font-size: 18px;
       margin-bottom: 12px;
-      color: $dark;
+      color: #1E293B;
       display: block;
 
       &::after {
@@ -183,38 +169,40 @@ body {
       }
     }
 
-    // 状态标签（修复失败状态圆点）
+    // 状态标签（修复故障状态圆点）
     .status {
-      margin: 0;
-      padding: 4px 12px;
-      font-size: 13px;
-      font-weight: 500;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      padding: 4px 12px;
       border-radius: 16px;
+      font-size: 13px;
+      font-weight: 500;
 
-      // 状态圆点（确保所有状态都显示）
+      // 强制显示所有状态圆点（关键修复）
       &::before {
         content: '';
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        flex-shrink: 0; // 防止圆点被压缩
+        flex-shrink: 0; // 防止被压缩
       }
 
+      // 正常状态
       &.ok {
         color: $success;
         background-color: rgba(54, 211, 153, 0.1);
         &::before { background-color: $success; }
       }
 
-      &.fail {
+      // 故障状态（对应"无法访问"，关键修复）
+      &.down {
         color: $danger;
         background-color: rgba(248, 114, 114, 0.1);
-        &::before { background-color: $danger; } // 修复失败状态圆点
+        &::before { background-color: $danger; } // 确保故障状态有红色圆点
       }
 
+      // 未知状态
       &.unknow {
         color: $neutral;
         background-color: rgba(148, 163, 184, 0.1);
@@ -223,22 +211,22 @@ body {
     }
   }
 
-  // 网络时间条形图（修复显示问题）
+  // 网络时间条形图（强制显示修复）
   .timeline {
-    height: auto;
-    background: none;
-    margin: 0;
-    display: flex; // 强制flex布局
-    gap: 1px; // 缩小间距显示更多节点
-    height: 8px; // 合适的高度
-    padding: 15px 20px;
-    border-bottom: 1px dashed #f0f0f0;
+    display: flex !important; // 强制flex布局
+    gap: 1px;
+    height: 8px;
+    padding: 12px 20px;
+    border-bottom: 1px dashed #F1F5F9;
     overflow: hidden;
+    position: relative;
 
+    // 强制显示所有时间点（关键修复）
     i {
-      display: block !important; // 强制显示所有时间点
-      flex: 1;
-      min-width: 3px; // 确保小屏幕也能显示
+      display: block !important;
+      flex: 1 0 auto; // 确保平均分配宽度
+      min-width: 3px; // 最小宽度，确保小屏幕也能显示
+      height: 100%;
       border-radius: 1px;
       transition: $transition;
 
@@ -248,7 +236,7 @@ body {
 
       &:hover {
         transform: scaleY(2);
-        z-index: 30;
+        z-index: 20;
       }
     }
   }
@@ -259,18 +247,11 @@ body {
     justify-content: space-between;
     font-size: 12px;
     color: $neutral;
-    padding-top: 15px;
-    border-top: none;
+    padding: 15px 20px;
 
-    span {
-      &:first-child {
-        color: $primary;
-        font-weight: 500;
-      }
-
-      &:nth-child(2) {
-        display: none;
-      }
+    span:first-child {
+      color: $primary;
+      font-weight: 500;
     }
   }
 
@@ -279,7 +260,7 @@ body {
     width: 40px;
     height: 40px;
     margin: 40px auto;
-    border: 3px solid $neutral-light;
+    border: 3px solid #F1F5F9;
     border-top-color: $primary;
     border-radius: 50%;
     animation: spin 1.2s linear infinite;
@@ -291,7 +272,7 @@ body {
   display: none !important;
   position: absolute !important;
   z-index: 100 !important;
-  background-color: $dark !important;
+  background-color: #1E293B !important;
   color: white !important;
   border-radius: 6px !important;
   padding: 6px 10px !important;
@@ -305,9 +286,9 @@ body {
   display: block !important;
 }
 
-// 页脚样式
+// 页脚
 #footer {
-  margin-top: 20px;
+  margin-top: 40px;
   padding: 20px 0;
   text-align: center;
   font-size: 12px;
@@ -326,7 +307,7 @@ body {
   }
 }
 
-// 响应式修复（防止导航栏错位）
+// 响应式优化
 @media (max-width: 768px) {
   #header {
     padding: 15px 0;
@@ -334,28 +315,23 @@ body {
 
   #header .container {
     flex-direction: column;
-    gap: 12px; // 缩小间距避免占太多空间
-    align-items: center;
+    gap: 12px;
   }
 
   #header .navi {
-    gap: 16px; // 小屏幕缩小导航间距
-    justify-content: center;
+    gap: 18px;
     width: 100%;
+    justify-content: center;
   }
 
   #uptime {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 20px;
     padding: 20px 0;
-  }
-
-  .site .timeline {
-    padding: 12px 15px;
   }
 }
 
-// 动画定义
+// 动画
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
