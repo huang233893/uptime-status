@@ -10,19 +10,67 @@
     <title>Uptime Status</title>
     <script src="./config.js"></script>
     <script
-    src="https://app.rybbit.io/api/script.js"
-    data-site-id="801"
-    defer
+      src="https://app.rybbit.io/api/script.js"
+      data-site-id="801"
+      defer
     ></script>
+    <!-- 引入 SCSS 编译后的 CSS 文件（需提前将之前的 SCSS 编译为 main.css） -->
+    <!-- <link rel="stylesheet" href="./main.css"> -->
   </head>
   <body>
     <div id="app"></div>
+
+    <!-- 底部统计区（整合美化结构） -->
+    <footer id="footer">
+      <div class="footer-content">
+        <div class="api-info">
+          基于UptimeRobot接口制作，检测频率5分钟 © 2020-2025 
+          <a href="https://up.sumi233.top">https://up.sumi233.top</a> Version 2.0.0
+        </div>
+        <div class="stats">
+          <div class="stat-item">
+            本文总阅读量 
+            <span id="busuanzi_page_pv" class="number" 
+                  style="color: #50ebc4; font-size: 14px; font-weight: bold;"></span> 次
+          </div>
+          <div class="stat-item">
+            本文总访客量 
+            <span id="busuanzi_page_uv" class="number" 
+                  style="color: #03ec16; font-size: 14px; font-weight: bold;"></span> 人
+          </div>
+          <div class="stat-item">
+            本站总访问量 
+            <span id="busuanzi_site_pv" class="number" 
+                  style="color: #9775f5; font-size: 14px; font-weight: bold;"></span> 次
+          </div>
+          <div class="stat-item">
+            本站总访客数 
+            <span id="busuanzi_site_uv" class="number" 
+                  style="color: #e95faf; font-size: 14px; font-weight: bold;"></span> 人
+          </div>
+        </div>
+        <div class="copyright">
+          本站所有数据仅供参考 | <a href="/about">关于本站</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 不蒜子访问量统计脚本 -->
     <script defer src="https://busuanzi.9420.ltd/js"></script>
-    <div style="text-align: center;">
-      本文总阅读量 <span id="busuanzi_page_pv" style="color: #50ebc4; font-size: 14px; font-weight: bold;"></span> 次&nbsp;&nbsp;&nbsp;&nbsp;
-      本文总访客量 <span id="busuanzi_page_uv" style="color: #03ec16; font-size: 14px; font-weight: bold;"></span> 人&nbsp;&nbsp;&nbsp;&nbsp;
-      本站总访问量 <span id="busuanzi_site_pv" style="color: #9775f5; font-size: 14px; font-weight: bold;"></span> 次&nbsp;&nbsp;&nbsp;&nbsp;
-      本站总访客数 <span id="busuanzi_site_uv" style="color: #e95faf; font-size: 14px; font-weight: bold;"></span> 人
-    </div>
+
+    <!-- 解决页面刷新闪烁的 JS 逻辑 -->
+    <script>
+      // 监听「所有资源（图片、样式等）加载完成」事件
+      window.addEventListener('load', function() {
+        document.documentElement.classList.add('loaded');
+      });
+
+      // 兼容「DOM 结构就绪」事件（更快触发，避免白屏过久）
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+          document.documentElement.classList.add('loaded');
+        }, 100);
+      });
+    </script>
   </body>
 </html>
